@@ -113,19 +113,29 @@ const themedStyles = createThemedStyles((theme) => ({
     color: theme.subtext,
   },
   emptyState: {
-    padding: 24,
+    paddingHorizontal: 24,
+    paddingVertical: 0, // No vertical padding
     alignItems: 'center',
+    marginTop: 0, // No top margin
+    marginBottom: 0, // No bottom margin
+    position: 'absolute', // Position absolutely
+    top: 0, // Position from top (reduced)
+    left: 0,
+    right: 0,
+    height: 'auto', // Auto height
   },
   emptyTitle: {
     fontFamily: 'Inter-SemiBold',
     fontSize: 18,
     color: theme.text,
-    marginBottom: 8,
+    marginBottom: 4, // Reduced spacing
+    marginTop: 0, // No top margin
   },
   emptyText: {
     fontFamily: 'Inter-Regular',
     fontSize: 14,
     color: theme.subtext,
     textAlign: 'center',
+    maxWidth: '80%', // Limit width for better readability
   },
 }));

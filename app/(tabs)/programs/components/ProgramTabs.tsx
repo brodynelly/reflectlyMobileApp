@@ -10,8 +10,8 @@ export function ProgramTabs({ activeTab, onTabChange }: ProgramTabsProps) {
   const { isDark } = useTheme();
   const styles = themedStyles(isDark);
   return (
-    <ScrollView 
-      horizontal 
+    <ScrollView
+      horizontal
       showsHorizontalScrollIndicator={false}
       style={styles.tabsContainer}
       contentContainerStyle={styles.tabsContent}>
@@ -50,21 +50,26 @@ export function ProgramTabs({ activeTab, onTabChange }: ProgramTabsProps) {
 const themedStyles = createThemedStyles((theme) => ({
   tabsContainer: {
     backgroundColor: theme.card,
-    borderBottomWidth: 0.5,
-    borderBottomColor: theme.border
+    borderBottomWidth: 0, // Removed border
+    paddingBottom: 0, // No bottom padding
+    marginTop: 0, // No top margin
+    marginBottom: 0, // No bottom margin
   },
   tabsContent: {
     paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingVertical: 0, // No vertical padding
     gap: 8,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    height: 36, // Reduced height for the tabs container
   },
   tab: {
-    paddingVertical: 6,
+    paddingVertical: 2, // Further reduced vertical padding
     paddingHorizontal: 12,
     borderRadius: 6,
     backgroundColor: theme.background,
+    height: 26, // Reduced height for tabs
+    justifyContent: 'center',
   },
   activeTab: {
     backgroundColor: theme.primary,
