@@ -1,9 +1,17 @@
 import { Tabs } from 'expo-router';
 import { Book, Chrome as Home, ChartLine as LineChart, Cog, Sparkles } from 'lucide-react-native';
 import { useTheme } from '@/context/ThemeContext';
+import { Platform } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function TabLayout() {
   const { isDark, colors } = useTheme();
+  const insets = useSafeAreaInsets();
+
+  // Calculate bottom padding based on platform and safe area
+  const bottomPadding = Platform.OS === 'ios' ? Math.max(insets.bottom, 10) : 8;
+  // Calculate tab bar height based on platform
+  const tabBarHeight = Platform.OS === 'ios' ? 50 + bottomPadding : 60;
 
   return (
     <Tabs
@@ -14,12 +22,16 @@ export default function TabLayout() {
           borderTopWidth: 0,
           elevation: 0,
           shadowOpacity: 0,
-          height: 60,
-          paddingBottom: 8,
+          height: tabBarHeight,
+          paddingBottom: bottomPadding,
           borderTopColor: colors.border,
         },
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.subtext,
+        tabBarLabelStyle: {
+          marginBottom: Platform.OS === 'ios' ? 2 : 0,
+          fontSize: 12,
+        },
       }}>
       <Tabs.Screen
         name="index"
