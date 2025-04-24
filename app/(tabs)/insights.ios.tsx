@@ -1,14 +1,10 @@
 import { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, Dimensions, useWindowDimensions } from 'react-native';
-import { Platform } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, useWindowDimensions } from 'react-native';
 import { useFonts, Inter_400Regular, Inter_600SemiBold } from '@expo-google-fonts/inter';
 import { PlayfairDisplay_700Bold } from '@expo-google-fonts/playfair-display';
 import { Target, Sparkles, ArrowUp, ArrowDown, Activity, TrendingUp, Star, FileText } from 'lucide-react-native';
 import { useTheme, createThemedStyles } from '@/context/ThemeContext';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryGroup, VictoryArea, VictoryLine } from '@/components/VictoryComponents';
 import { supabase } from '@/lib/supabase';
-
-const DEFAULT_CHART_WIDTH = 300;
 
 type MoodData = {
   date: Date;
@@ -44,7 +40,6 @@ export default function InsightsScreen() {
   const { isDark } = useTheme();
   const styles = themedStyles(isDark);
   const { width } = useWindowDimensions();
-  const chartWidth = Math.max(DEFAULT_CHART_WIDTH, Math.min(width - 48, 800));
 
   const [insights, setInsights] = useState<InsightData>({
     totalEntries: 0,
@@ -91,10 +86,10 @@ export default function InsightsScreen() {
 
       // Calculate weekly stats
       const oneWeekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
-      const weeklyEntries = entries.filter(entry =>
+      const weeklyEntries = entries.filter(entry => 
         new Date(entry.created_at) >= oneWeekAgo
       ).length;
-
+      
       // Calculate weekly entries data for the graph
       const weeklyEntriesData = Array.from({ length: 7 }, (_, i) => {
         const date = new Date(today);
@@ -113,9 +108,9 @@ export default function InsightsScreen() {
           const entryDate = new Date(entry.created_at);
           return entryDate >= startDate && entryDate < endDate;
         });
-
+        
         if (weekEntries.length === 0) return 0;
-
+        
         const totalScore = weekEntries.reduce((sum, entry) => sum + (MOOD_VALUES[entry.mood] || 0), 0);
         return Math.round((totalScore / weekEntries.length) * 100) / 100;
       };
@@ -210,48 +205,9 @@ export default function InsightsScreen() {
 
             <View>
               <Text style={styles.weeklyTitle}>Weekly Entries</Text>
-              <VictoryChart
-                width={chartWidth}
-                height={180}
-                padding={{ top: 20, bottom: 30, left: 40, right: 20 }}
-                domainPadding={{ x: 20, y: [0, 20] }}>
-                <VictoryAxis
-                  tickFormat={(t) => ['Week 1', 'Week 2', 'Week 3', 'Week 4'][t]}
-                  style={{
-                    axis: { stroke: '#e2e8f0' },
-                    tickLabels: {
-                      fill: '#64748b',
-                      fontSize: 12,
-                      fontFamily: 'Inter-Regular'
-                    }
-                  }}
-                />
-                <VictoryAxis
-                  dependentAxis
-                  tickValues={[0, 1, 2, 3, 4]}
-                  style={{
-                    axis: { stroke: '#e2e8f0' },
-                    tickLabels: {
-                      fill: '#64748b',
-                      fontSize: 12,
-                      fontFamily: 'Inter-Regular'
-                    }
-                  }}
-                />
-                <VictoryBar
-                  data={[0, 1, 2, 3].map(i => ({
-                    x: i,
-                    y: Math.max(0, insights.weeklyEntriesData[i]?.count || 0)
-                  }))}
-                  style={{
-                    data: {
-                      fill: '#6366f1',
-                      width: 30
-                    }
-                  }}
-                  cornerRadius={{ top: 4 }}
-                />
-              </VictoryChart>
+              <View style={styles.chartPlaceholder}>
+                <Text style={styles.chartPlaceholderText}>Weekly entries chart</Text>
+              </View>
             </View>
           </View>
         </View>
@@ -260,55 +216,8 @@ export default function InsightsScreen() {
       <View style={styles.section}>
         <View style={styles.chartContainer}>
           <Text style={styles.chartTitle}>Mood Trends</Text>
-          <View>
-            <VictoryChart
-              width={chartWidth}
-              height={200}
-              padding={{ top: 20, bottom: 20, left: 40, right: 20 }}
-              domainPadding={{ y: [0, 20] }}>
-              <VictoryAxis
-                dependentAxis
-                tickValues={[1, 2, 3, 4, 5]}
-                tickFormat={(value) => {
-                  const moodLabels = ['', 'Low', 'Neutral', 'Good', 'Great', 'Excellent'];
-                  return moodLabels[value];
-                }}
-                style={{
-                  axis: { stroke: '#e2e8f0' },
-                  tickLabels: {
-                    fill: '#64748b',
-                    fontSize: 12,
-                    fontFamily: 'Inter-Regular',
-                    strokeWidth: 0
-                  },
-                  data: {
-                    stroke: '#6366f1',
-                    strokeWidth: 2
-                  }
-                }}
-              />
-              <VictoryGroup>
-                <VictoryArea
-                  data={insights.moodData}
-                  x="date"
-                  y="value"
-                  interpolation="monotoneX"
-                  style={{
-                    data: {
-                      fill: '#818cf8',
-                      fillOpacity: 0.1
-                    }
-                  }}
-                />
-                <VictoryLine
-                  data={insights.moodData}
-                  x="date"
-                  y="value"
-                  interpolation="monotoneX"
-                  style={{ data: { stroke: '#6366f1', strokeWidth: 2 } }}
-                />
-              </VictoryGroup>
-            </VictoryChart>
+          <View style={styles.chartPlaceholder}>
+            <Text style={styles.chartPlaceholderText}>Mood trends chart</Text>
           </View>
         </View>
       </View>
@@ -599,5 +508,17 @@ const themedStyles = createThemedStyles((theme) => ({
     fontFamily: 'Inter-Regular',
     fontSize: 16,
     color: theme.text
+  },
+  chartPlaceholder: {
+    height: 180,
+    backgroundColor: theme.background,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  chartPlaceholderText: {
+    fontFamily: 'Inter-Regular',
+    fontSize: 16,
+    color: theme.subtext
   }
 }));

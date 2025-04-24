@@ -13,6 +13,7 @@
     "@supabase/supabase-js": "^2.39.3",
     "date-fns": "^3.3.1",
     "victory": "^36.9.1",
+    "victory-native": "^36.9.1",
     "@lucide/lab": "^0.1.2",
     "@expo-google-fonts/inter": "^0.2.3",
     "@expo-google-fonts/playfair-display": "^0.2.3",
