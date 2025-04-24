@@ -4,7 +4,7 @@ A beautifully designed journaling and reflection app inspired by Reflectly. This
 
 ---
 
-## ✨ Features
+## Features
 
 - Guided daily journal entries with intelligent prompts
 - Mood tracking with emoji and visual cues
@@ -14,12 +14,10 @@ A beautifully designed journaling and reflection app inspired by Reflectly. This
 
 ---
 
-## 📦 Tech Stack
+## Tech Stack
 
 - **Frontend**: React Native (Expo)
 - **Backend**: Supabase (PostgreSQL + Auth)
 - **State Management**: React Context API + Hooks
 - **Styling**: Tailwind CSS (via Nativewind)
 - **Type Safety**: TypeScript
-
----
