@@ -162,11 +162,12 @@ const themedStyles = createThemedStyles((theme, insets = { top: 0, bottom: 0 }) 
   content: {
     flexGrow: 1,
     paddingBottom: Platform.OS === 'ios' ? insets.bottom + 20 : 20,
+    paddingTop: Platform.OS === 'ios' ? 20 : 0, // Added top padding
   },
   header: {
     paddingHorizontal: 24,
-    paddingTop: Platform.OS === 'ios' ? insets.top + 12 : 24,
-    marginBottom: 32,
+    paddingTop: Platform.OS === 'ios' ? insets.top + 60 : 60, // Increased top padding significantly
+    marginBottom: 40, // Increased bottom margin
   },
   backButton: {
     width: 40,
@@ -176,7 +177,8 @@ const themedStyles = createThemedStyles((theme, insets = { top: 0, bottom: 0 }) 
     backgroundColor: '#f8fafc',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 24,
+    marginBottom: 32, // Increased spacing after back button
+    marginTop: 12, // Added top margin
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -184,25 +186,26 @@ const themedStyles = createThemedStyles((theme, insets = { top: 0, bottom: 0 }) 
     elevation: 2,
   },
   titleContainer: {
-    marginBottom: 24,
+    marginBottom: 36, // Increased bottom margin
   },
   title: {
     fontFamily: 'Playfair-Bold',
     fontSize: 32,
     color: theme.text,
-    marginBottom: 8,
+    marginBottom: 12, // Increased spacing
   },
   subtitle: {
     fontFamily: 'Inter-Regular',
     fontSize: 16,
     color: theme.subtext,
-    marginBottom: 32,
+    marginBottom: 40, // Increased bottom margin
     lineHeight: 22,
   },
   form: {
-    gap: 16,
-    marginBottom: 32,
+    gap: 20, // Increased gap between form elements
+    marginBottom: 40, // Increased bottom margin
     paddingHorizontal: 24,
+    marginTop: 20, // Added top margin
   },
   inputContainer: {
     flexDirection: 'row',
@@ -231,7 +234,7 @@ const themedStyles = createThemedStyles((theme, insets = { top: 0, bottom: 0 }) 
   },
   buttonContainer: {
     paddingHorizontal: 24,
-    marginTop: 8,
+    marginTop: 20, // Increased top margin
   },
   button: {
     backgroundColor: theme.primary,
@@ -240,7 +243,7 @@ const themedStyles = createThemedStyles((theme, insets = { top: 0, bottom: 0 }) 
     borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 16,
+    marginBottom: 24, // Increased bottom margin
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
@@ -261,6 +264,7 @@ const themedStyles = createThemedStyles((theme, insets = { top: 0, bottom: 0 }) 
   switchMode: {
     alignItems: 'center',
     padding: 16,
+    marginTop: 8, // Added top margin
   },
   switchModeText: {
     fontFamily: 'Inter-Regular',
